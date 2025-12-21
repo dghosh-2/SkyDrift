@@ -5,11 +5,8 @@ import sys
 import os
 import re
 
-# Set up path for _lib imports
-_file_dir = os.path.dirname(os.path.abspath(__file__))
-_api_dir = os.path.dirname(os.path.dirname(os.path.dirname(_file_dir)))  # [lng] -> [lat] -> check -> storms -> api
-sys.path.insert(0, _api_dir)
-sys.path.insert(0, '/var/task/api')
+# Add current directory to path for _lib imports (flat structure)
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from _lib.storm_service import get_storm_service
 

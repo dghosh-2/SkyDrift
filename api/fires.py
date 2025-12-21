@@ -4,18 +4,15 @@ import asyncio
 import sys
 import os
 
-# Set up path for _lib imports
-_file_dir = os.path.dirname(os.path.abspath(__file__))
-_api_dir = os.path.dirname(_file_dir)  # storms -> api
-sys.path.insert(0, _api_dir)
-sys.path.insert(0, '/var/task/api')
+# Add current directory to path for _lib imports (flat structure)
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from _lib.storm_service import get_storm_service
+from _lib.fire_service import get_fire_service
 
 
 class handler(BaseHTTPRequestHandler):
     def do_GET(self):
-        result = asyncio.run(self._get_storms())
+        result = asyncio.run(self._get_fires())
         
         self.send_response(200)
         self.send_header('Content-Type', 'application/json')
@@ -30,8 +27,8 @@ class handler(BaseHTTPRequestHandler):
         self.send_header('Access-Control-Allow-Headers', 'Content-Type')
         self.end_headers()
     
-    async def _get_storms(self):
-        service = get_storm_service()
-        storms = await service.get_active_storms()
-        return storms.model_dump()
+    async def _get_fires(self):
+        service = get_fire_service()
+        fires = await service.get_active_fires()
+        return fires.model_dump()
 

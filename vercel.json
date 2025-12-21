@@ -7,55 +7,55 @@
       "use": "@vercel/next"
     },
     {
-      "src": "api/balloons/selected.py",
+      "src": "api/balloons_selected.py",
       "use": "@vercel/python",
       "config": { "includeFiles": "api/_lib/**" }
     },
     {
-      "src": "api/balloons/all/current.py",
+      "src": "api/balloons_all_current.py",
       "use": "@vercel/python",
       "config": { "includeFiles": "api/_lib/**" }
     },
     {
-      "src": "api/fires/index.py",
+      "src": "api/fires.py",
       "use": "@vercel/python",
       "config": { "includeFiles": "api/_lib/**" }
     },
     {
-      "src": "api/storms/index.py",
+      "src": "api/storms.py",
       "use": "@vercel/python",
       "config": { "includeFiles": "api/_lib/**" }
     },
     {
-      "src": "api/storms/check/[lat]/[lng].py",
+      "src": "api/storms_check.py",
       "use": "@vercel/python",
       "config": { "includeFiles": "api/_lib/**" }
     },
     {
-      "src": "api/weather/wind/grid.py",
+      "src": "api/weather_wind_grid.py",
       "use": "@vercel/python",
       "config": { "includeFiles": "api/_lib/**" }
     },
     {
-      "src": "api/weather/[lat]/[lng].py",
+      "src": "api/weather_location.py",
       "use": "@vercel/python",
       "config": { "includeFiles": "api/_lib/**" }
     },
     {
-      "src": "api/location/parse.py",
+      "src": "api/location_parse.py",
       "use": "@vercel/python",
       "config": { "includeFiles": "api/_lib/**" }
     }
   ],
   "routes": [
-    { "src": "/api/balloons/selected", "dest": "/api/balloons/selected.py" },
-    { "src": "/api/balloons/all/current", "dest": "/api/balloons/all/current.py" },
-    { "src": "/api/fires", "dest": "/api/fires/index.py" },
-    { "src": "/api/storms", "dest": "/api/storms/index.py" },
-    { "src": "/api/storms/check/(.*)/(.*)", "dest": "/api/storms/check/[lat]/[lng].py?lat=$1&lng=$2" },
-    { "src": "/api/weather/wind/grid", "dest": "/api/weather/wind/grid.py" },
-    { "src": "/api/weather/(.*)/(.*)", "dest": "/api/weather/[lat]/[lng].py?lat=$1&lng=$2" },
-    { "src": "/api/location/parse", "dest": "/api/location/parse.py" },
+    { "src": "/api/balloons/selected", "dest": "/api/balloons_selected.py" },
+    { "src": "/api/balloons/all/current", "dest": "/api/balloons_all_current.py" },
+    { "src": "/api/fires", "dest": "/api/fires.py" },
+    { "src": "/api/storms", "dest": "/api/storms.py" },
+    { "src": "/api/storms/check/(.*)/(.*)", "dest": "/api/storms_check.py?lat=$1&lng=$2" },
+    { "src": "/api/weather/wind/grid", "dest": "/api/weather_wind_grid.py" },
+    { "src": "/api/weather/(.*)/(.*)", "dest": "/api/weather_location.py?lat=$1&lng=$2" },
+    { "src": "/api/location/parse", "dest": "/api/location_parse.py" },
     { "src": "/(.*)", "dest": "/frontend/$1" }
   ]
 }
