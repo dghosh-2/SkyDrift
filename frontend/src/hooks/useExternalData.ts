@@ -51,11 +51,6 @@ export function useWindGrid() {
   );
 
   const winds = data?.winds ?? [];
-  // #region agent log
-  if (typeof window !== 'undefined') {
-    fetch('http://127.0.0.1:7242/ingest/8ae83d41-f86b-428d-9d07-0128f8355eba',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'useExternalData.ts:useWindGrid',message:'Wind data state',data:{windsCount:winds.length,isLoading,hasError:!!error,errorMsg:error?.message},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'A'})}).catch(()=>{});
-  }
-  // #endregion
 
   return {
     winds,

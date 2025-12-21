@@ -9,9 +9,6 @@ interface ToggleProps {
 
 export function Toggle({ enabled, onChange, label, color = '#3b82f6' }: ToggleProps) {
   const handleClick = () => {
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/8ae83d41-f86b-428d-9d07-0128f8355eba',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Toggle.tsx:handleClick',message:'Toggle clicked',data:{label,currentEnabled:enabled,willBe:!enabled},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'B'})}).catch(()=>{});
-    // #endregion
     onChange(!enabled);
   };
 

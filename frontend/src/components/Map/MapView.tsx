@@ -377,16 +377,9 @@ export function MapView({
 
   // Update wind overlay
   useEffect(() => {
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/8ae83d41-f86b-428d-9d07-0128f8355eba',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'MapView.tsx:wind-effect-entry',message:'Wind useEffect triggered',data:{showWindOverlay,windsLength:winds.length,mapLoaded,hasMap:!!map.current},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'A,B,C'})}).catch(()=>{});
-    // #endregion
-
     if (!map.current || !mapLoaded) return;
 
     const source = map.current.getSource('wind-overlay') as mapboxgl.GeoJSONSource;
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/8ae83d41-f86b-428d-9d07-0128f8355eba',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'MapView.tsx:wind-source-check',message:'Wind source check',data:{hasSource:!!source},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'D'})}).catch(()=>{});
-    // #endregion
     if (!source) return;
 
     if (showWindOverlay && winds.length > 0) {
@@ -408,15 +401,9 @@ export function MapView({
         features,
       });
       map.current.setLayoutProperty('wind-points', 'visibility', 'visible');
-      // #region agent log
-      fetch('http://127.0.0.1:7242/ingest/8ae83d41-f86b-428d-9d07-0128f8355eba',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'MapView.tsx:wind-visible',message:'Wind layer set to VISIBLE',data:{featuresCount:features.length},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'E'})}).catch(()=>{});
-      // #endregion
     } else {
       source.setData({ type: 'FeatureCollection', features: [] });
       map.current.setLayoutProperty('wind-points', 'visibility', 'none');
-      // #region agent log
-      fetch('http://127.0.0.1:7242/ingest/8ae83d41-f86b-428d-9d07-0128f8355eba',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'MapView.tsx:wind-hidden',message:'Wind layer set to HIDDEN',data:{showWindOverlay,windsLength:winds.length},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'A,E'})}).catch(()=>{});
-      // #endregion
     }
   }, [winds, showWindOverlay, mapLoaded]);
 
