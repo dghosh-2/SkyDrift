@@ -4,8 +4,8 @@ import asyncio
 import sys
 import os
 
-# Add project root to path for imports
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+# Add api directory to path for imports
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from _lib.balloon_service import get_balloon_service
 from _lib.prediction_service import get_prediction_service

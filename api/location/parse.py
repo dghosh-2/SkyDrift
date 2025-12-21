@@ -4,8 +4,8 @@ import asyncio
 import sys
 import os
 
-# api/location/parse.py -> need to go up 2 levels to reach project root
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+# api/location/parse.py -> need to go up 1 level to reach api directory
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from _lib.location_service import get_location_service
 

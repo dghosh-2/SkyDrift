@@ -5,8 +5,8 @@ import sys
 import os
 import re
 
-# api/storms/check/[lat]/[lng].py -> need to go up 4 levels to reach project root
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))))
+# api/storms/check/[lat]/[lng].py -> need to go up 3 levels to reach api directory
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
 
 from _lib.storm_service import get_storm_service
 

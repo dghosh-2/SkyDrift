@@ -8,10 +8,7 @@
     },
     {
       "src": "api/**/*.py",
-      "use": "@vercel/python",
-      "config": {
-        "includeFiles": "_lib/**"
-      }
+      "use": "@vercel/python"
     }
   ],
   "routes": [

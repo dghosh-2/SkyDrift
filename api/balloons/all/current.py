@@ -4,8 +4,8 @@ import asyncio
 import sys
 import os
 
-# api/balloons/all/current.py -> need to go up 3 levels to reach project root
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
+# api/balloons/all/current.py -> need to go up 2 levels to reach api directory
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 from _lib.balloon_service import get_balloon_service
 

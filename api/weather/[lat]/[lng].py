@@ -5,8 +5,8 @@ import sys
 import os
 import re
 
-# api/weather/[lat]/[lng].py -> need to go up 3 levels to reach project root
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
+# api/weather/[lat]/[lng].py -> need to go up 2 levels to reach api directory
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 from _lib.weather_service import get_weather_service
 
