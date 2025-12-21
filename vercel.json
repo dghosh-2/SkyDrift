@@ -2,6 +2,20 @@
   "buildCommand": "cd frontend && npm install && npm run build",
   "outputDirectory": "frontend/.next",
   "installCommand": "cd frontend && npm install",
-  "framework": "nextjs"
+  "framework": "nextjs",
+  "functions": {
+    "api/**/*.py": {
+      "runtime": "python3.9"
+    }
+  },
+  "rewrites": [
+    { "source": "/api/balloons/selected", "destination": "/api/balloons/selected" },
+    { "source": "/api/balloons/all/current", "destination": "/api/balloons/all/current" },
+    { "source": "/api/fires", "destination": "/api/fires/index" },
+    { "source": "/api/storms", "destination": "/api/storms/index" },
+    { "source": "/api/storms/check/:lat/:lng", "destination": "/api/storms/check/[lat]/[lng]" },
+    { "source": "/api/weather/wind/grid", "destination": "/api/weather/wind/grid" },
+    { "source": "/api/weather/:lat/:lng", "destination": "/api/weather/[lat]/[lng]" },
+    { "source": "/api/location/parse", "destination": "/api/location/parse" }
+  ]
 }
-

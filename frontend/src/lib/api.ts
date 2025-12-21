@@ -1,4 +1,5 @@
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+// Use relative paths on Vercel (production), localhost for local dev
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || (typeof window !== 'undefined' && window.location.hostname !== 'localhost' ? '' : 'http://localhost:8000');
 
 async function fetchAPI<T>(endpoint: string, options?: RequestInit): Promise<T> {
   const response = await fetch(`${API_BASE}${endpoint}`, {
@@ -60,7 +61,9 @@ export const api = {
     }),
 };
 
-// SWR fetcher
-export const fetcher = <T>(url: string): Promise<T> =>
-  fetch(`${API_BASE}${url}`).then((res) => res.json());
+// SWR fetcher - use relative paths for production
+export const fetcher = <T>(url: string): Promise<T> => {
+  const base = typeof window !== 'undefined' && window.location.hostname !== 'localhost' ? '' : 'http://localhost:8000';
+  return fetch(`${base}${url}`).then((res) => res.json());
+};
 
