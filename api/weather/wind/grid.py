@@ -4,7 +4,8 @@ import asyncio
 import sys
 import os
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+# api/weather/wind/grid.py -> need to go up 3 levels to reach project root
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))))
 
 from _lib.weather_service import get_weather_service
 

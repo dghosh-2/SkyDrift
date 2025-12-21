@@ -4,7 +4,8 @@ import asyncio
 import sys
 import os
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# api/fires/index.py -> need to go up 2 levels to reach project root
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 from _lib.fire_service import get_fire_service
 

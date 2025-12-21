@@ -4,7 +4,8 @@ import asyncio
 import sys
 import os
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# api/storms/index.py -> need to go up 2 levels to reach project root
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
 from _lib.storm_service import get_storm_service
 
