@@ -8,35 +8,43 @@
     },
     {
       "src": "api/balloons/selected.py",
-      "use": "@vercel/python"
+      "use": "@vercel/python",
+      "config": { "includeFiles": "api/_lib/**" }
     },
     {
       "src": "api/balloons/all/current.py",
-      "use": "@vercel/python"
+      "use": "@vercel/python",
+      "config": { "includeFiles": "api/_lib/**" }
     },
     {
       "src": "api/fires/index.py",
-      "use": "@vercel/python"
+      "use": "@vercel/python",
+      "config": { "includeFiles": "api/_lib/**" }
     },
     {
       "src": "api/storms/index.py",
-      "use": "@vercel/python"
+      "use": "@vercel/python",
+      "config": { "includeFiles": "api/_lib/**" }
     },
     {
       "src": "api/storms/check/[lat]/[lng].py",
-      "use": "@vercel/python"
+      "use": "@vercel/python",
+      "config": { "includeFiles": "api/_lib/**" }
     },
     {
       "src": "api/weather/wind/grid.py",
-      "use": "@vercel/python"
+      "use": "@vercel/python",
+      "config": { "includeFiles": "api/_lib/**" }
     },
     {
       "src": "api/weather/[lat]/[lng].py",
-      "use": "@vercel/python"
+      "use": "@vercel/python",
+      "config": { "includeFiles": "api/_lib/**" }
     },
     {
       "src": "api/location/parse.py",
-      "use": "@vercel/python"
+      "use": "@vercel/python",
+      "config": { "includeFiles": "api/_lib/**" }
     }
   ],
   "routes": [

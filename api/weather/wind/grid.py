@@ -4,8 +4,13 @@ import asyncio
 import sys
 import os
 
-# api/weather/wind/grid.py -> need to go up 2 levels to reach api directory
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+# Add multiple potential paths for _lib imports
+_current_dir = os.path.dirname(os.path.abspath(__file__))
+_api_dir = os.path.dirname(os.path.dirname(os.path.dirname(_current_dir)))
+sys.path.insert(0, _current_dir)
+sys.path.insert(0, os.path.dirname(os.path.dirname(_current_dir)))  # api directory
+sys.path.insert(0, _api_dir)
+sys.path.insert(0, os.path.join(_api_dir, 'api'))
 
 from _lib.weather_service import get_weather_service
 
