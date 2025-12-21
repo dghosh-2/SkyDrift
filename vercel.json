@@ -1,4 +1,25 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "rootDirectory": "frontend"
+  "version": 2,
+  "builds": [
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/next"
+    },
+    {
+      "src": "api/**/*.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    { "src": "/api/balloons/selected", "dest": "/api/balloons/selected.py" },
+    { "src": "/api/balloons/all/current", "dest": "/api/balloons/all/current.py" },
+    { "src": "/api/fires", "dest": "/api/fires/index.py" },
+    { "src": "/api/storms", "dest": "/api/storms/index.py" },
+    { "src": "/api/storms/check/(.*)/(.*)", "dest": "/api/storms/check/[lat]/[lng].py?lat=$1&lng=$2" },
+    { "src": "/api/weather/wind/grid", "dest": "/api/weather/wind/grid.py" },
+    { "src": "/api/weather/(.*)/(.*)", "dest": "/api/weather/[lat]/[lng].py?lat=$1&lng=$2" },
+    { "src": "/api/location/parse", "dest": "/api/location/parse.py" },
+    { "src": "/(.*)", "dest": "/frontend/$1" }
+  ]
 }
