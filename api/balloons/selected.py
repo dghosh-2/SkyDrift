@@ -4,13 +4,14 @@ import asyncio
 import sys
 import os
 
-# Add multiple potential paths for _lib imports
-_current_dir = os.path.dirname(os.path.abspath(__file__))
-_api_dir = os.path.dirname(os.path.dirname(_current_dir))
-sys.path.insert(0, _current_dir)  # For when _lib is bundled alongside
-sys.path.insert(0, os.path.dirname(_current_dir))  # api/balloons -> api
-sys.path.insert(0, _api_dir)  # Go up to api directory
-sys.path.insert(0, os.path.join(_api_dir, 'api'))  # Explicit api path
+# Set up path for _lib imports
+# In Vercel, files are bundled to /var/task/api/...
+# We need to add the api directory to path
+_file_dir = os.path.dirname(os.path.abspath(__file__))
+_api_dir = os.path.dirname(_file_dir)  # balloons -> api
+sys.path.insert(0, _api_dir)
+# Also try /var/task/api for Vercel environment
+sys.path.insert(0, '/var/task/api')
 
 from _lib.balloon_service import get_balloon_service
 from _lib.prediction_service import get_prediction_service

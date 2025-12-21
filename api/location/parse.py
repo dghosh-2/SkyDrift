@@ -4,13 +4,11 @@ import asyncio
 import sys
 import os
 
-# Add multiple potential paths for _lib imports
-_current_dir = os.path.dirname(os.path.abspath(__file__))
-_api_dir = os.path.dirname(os.path.dirname(_current_dir))
-sys.path.insert(0, _current_dir)
-sys.path.insert(0, os.path.dirname(_current_dir))  # api directory
+# Set up path for _lib imports
+_file_dir = os.path.dirname(os.path.abspath(__file__))
+_api_dir = os.path.dirname(_file_dir)  # location -> api
 sys.path.insert(0, _api_dir)
-sys.path.insert(0, os.path.join(_api_dir, 'api'))
+sys.path.insert(0, '/var/task/api')
 
 from _lib.location_service import get_location_service
 
