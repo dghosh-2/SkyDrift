@@ -23,7 +23,7 @@ export function ModeTabs({ mode, onModeChange }: ModeTabsProps) {
           className={`
             px-5 py-2.5 rounded-xl font-medium text-sm transition-all duration-200 flex items-center gap-2
             ${mode === tab.id
-              ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg shadow-indigo-200'
+              ? 'bg-gradient-to-r from-sky-500 to-cyan-500 text-white shadow-lg shadow-sky-200'
               : 'text-gray-500 hover:text-gray-800 hover:bg-gray-100'
             }
           `}

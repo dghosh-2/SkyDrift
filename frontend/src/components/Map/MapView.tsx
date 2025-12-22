@@ -547,16 +547,38 @@ export function MapView({
           const popupContainer = document.createElement('div');
           const root = createRoot(popupContainer);
           
+          // Determine best anchor based on balloon position on screen
+          const mapBounds = map.current!.getBounds();
+          const mapCenter = map.current!.getCenter();
+          const isNearTop = pos.lat > mapCenter.lat + (mapBounds.getNorth() - mapCenter.lat) * 0.3;
+          const isNearBottom = pos.lat < mapCenter.lat - (mapCenter.lat - mapBounds.getSouth()) * 0.3;
+          const isNearLeft = pos.lng < mapCenter.lng - (mapCenter.lng - mapBounds.getWest()) * 0.3;
+          const isNearRight = pos.lng > mapCenter.lng + (mapBounds.getEast() - mapCenter.lng) * 0.3;
+          
+          // Choose anchor to keep popup on screen
+          let anchor: mapboxgl.Anchor = 'bottom';
+          if (isNearTop) anchor = 'top';
+          else if (isNearBottom) anchor = 'bottom';
+          if (isNearLeft && isNearTop) anchor = 'top-left';
+          else if (isNearRight && isNearTop) anchor = 'top-right';
+          else if (isNearLeft && isNearBottom) anchor = 'bottom-left';
+          else if (isNearRight && isNearBottom) anchor = 'bottom-right';
+          else if (isNearLeft) anchor = 'left';
+          else if (isNearRight) anchor = 'right';
+          
           const popup = new mapboxgl.Popup({
             closeButton: true,
             closeOnClick: false,
             maxWidth: '360px',
-            anchor: 'bottom',
-            offset: [0, -10],
+            anchor,
+            offset: 15,
           })
             .setLngLat([pos.lng, pos.lat])
             .setDOMContent(popupContainer)
             .addTo(map.current!);
+          
+          // Pan map to ensure popup is visible
+          map.current!.panTo([pos.lng, pos.lat], { duration: 300 });
 
           popupRef.current = popup;
 

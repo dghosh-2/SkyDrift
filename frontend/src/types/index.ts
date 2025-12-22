@@ -82,6 +82,13 @@ export interface LocationResponse {
   error?: string;
 }
 
+export interface WatchZoneHistoryEntry {
+  timestamp: number;
+  balloonsInZone: number;
+  balloonsInStorms: number;
+  balloonsOverFires: number;
+}
+
 export interface WatchZone {
   id: number;
   name: string;
@@ -89,6 +96,8 @@ export interface WatchZone {
   balloonsInZone: number;
   balloonsInStorms: number;
   balloonsOverFires: number;
+  createdAt: number;
+  history: WatchZoneHistoryEntry[];
 }
 
 export type ViewMode = 'present' | 'historic' | 'future';

@@ -128,7 +128,7 @@ export function BalloonPopup({
       {loading ? (
         <div className="flex items-center justify-center py-8">
           <div className="flex flex-col items-center gap-2">
-            <div className="w-8 h-8 border-3 border-gray-200 border-t-indigo-600 rounded-full animate-spin" />
+            <div className="w-8 h-8 border-3 border-gray-200 border-t-sky-500 rounded-full animate-spin" />
             <p className="text-xs text-gray-400">Loading data...</p>
           </div>
         </div>
@@ -136,10 +136,10 @@ export function BalloonPopup({
         <div className="space-y-4">
           {/* Region */}
           {weather && (
-            <div className="flex items-center gap-3 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl p-3 border border-indigo-100">
+            <div className="flex items-center gap-3 bg-gradient-to-r from-sky-50 to-cyan-50 rounded-xl p-3 border border-sky-100">
               <span className="text-2xl">📍</span>
               <div>
-                <p className="text-xs text-indigo-500 font-medium">Location</p>
+                <p className="text-xs text-sky-500 font-medium">Location</p>
                 <p className="text-sm font-semibold text-gray-800">
                   {weather.region}
                 </p>
@@ -167,33 +167,52 @@ export function BalloonPopup({
             </div>
           </div>
 
-          {/* Weather */}
+          {/* Weather Module */}
           {weather && (
-            <div className="grid grid-cols-2 gap-2">
-              <div className="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-xl p-3 border border-orange-100">
-                <p className="text-xs text-orange-500 font-medium mb-1">🌡️ Temp</p>
-                <p className="font-mono text-lg font-bold text-gray-800">
-                  {weather.temperature.toFixed(1)}°C
-                </p>
+            <div className="bg-gradient-to-br from-sky-50 via-cyan-50 to-blue-50 rounded-xl p-4 border border-sky-200 shadow-sm">
+              {/* Weather header with icon and description */}
+              <div className="flex items-center justify-between mb-3 pb-2 border-b border-sky-100">
+                <div className="flex items-center gap-2">
+                  <div className="w-10 h-10 bg-gradient-to-br from-sky-400 to-cyan-500 rounded-lg flex items-center justify-center shadow-md">
+                    <span className="text-xl">
+                      {weather.clouds > 70 ? '☁️' : weather.clouds > 30 ? '⛅' : '☀️'}
+                    </span>
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold text-gray-800 capitalize">{weather.description}</p>
+                    <p className="text-xs text-sky-600">{weather.pressure} hPa</p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <p className="text-2xl font-bold text-gray-800">{weather.temperature.toFixed(0)}°</p>
+                  <p className="text-xs text-gray-500">Celsius</p>
+                </div>
               </div>
-              <div className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl p-3 border border-blue-100">
-                <p className="text-xs text-blue-500 font-medium mb-1">💧 Humidity</p>
-                <p className="font-mono text-lg font-bold text-gray-800">
-                  {weather.humidity}%
-                </p>
+              
+              {/* Weather details grid */}
+              <div className="grid grid-cols-3 gap-2">
+                <div className="bg-white/60 rounded-lg p-2 text-center">
+                  <p className="text-lg">💧</p>
+                  <p className="font-mono text-sm font-bold text-gray-800">{weather.humidity}%</p>
+                  <p className="text-[10px] text-gray-500">Humidity</p>
+                </div>
+                <div className="bg-white/60 rounded-lg p-2 text-center">
+                  <p className="text-lg">💨</p>
+                  <p className="font-mono text-sm font-bold text-gray-800">{weather.wind_speed.toFixed(1)}</p>
+                  <p className="text-[10px] text-gray-500">Wind m/s</p>
+                </div>
+                <div className="bg-white/60 rounded-lg p-2 text-center">
+                  <p className="text-lg">☁️</p>
+                  <p className="font-mono text-sm font-bold text-gray-800">{weather.clouds}%</p>
+                  <p className="text-[10px] text-gray-500">Clouds</p>
+                </div>
               </div>
-              <div className="bg-gradient-to-br from-teal-50 to-emerald-50 rounded-xl p-3 border border-teal-100">
-                <p className="text-xs text-teal-500 font-medium mb-1">💨 Wind</p>
-                <p className="font-mono text-sm font-bold text-gray-800">
-                  {weather.wind_speed.toFixed(1)} m/s
-                </p>
-                <p className="text-xs text-gray-500">{windDirectionToCompass(weather.wind_direction)}</p>
-              </div>
-              <div className="bg-gradient-to-br from-gray-50 to-slate-50 rounded-xl p-3 border border-gray-200">
-                <p className="text-xs text-gray-500 font-medium mb-1">☁️ Clouds</p>
-                <p className="font-mono text-lg font-bold text-gray-800">
-                  {weather.clouds}%
-                </p>
+              
+              {/* Wind direction indicator */}
+              <div className="mt-2 flex items-center justify-center gap-2 text-xs text-sky-700 bg-white/40 rounded-lg py-1.5">
+                <span>Wind from</span>
+                <span className="font-bold">{windDirectionToCompass(weather.wind_direction)}</span>
+                <span className="text-lg" style={{ transform: `rotate(${weather.wind_direction}deg)` }}>↓</span>
               </div>
             </div>
           )}
@@ -222,37 +241,37 @@ export function BalloonPopup({
 
           {/* Future prediction details */}
           {isFuture && position.hours_ago < 0 && trajectoryData && (
-            <div className="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-xl p-4 border border-purple-100">
+            <div className="bg-gradient-to-br from-sky-50 to-cyan-50 rounded-xl p-4 border border-sky-100">
               <div className="flex items-center gap-2 mb-3">
                 <span className="text-lg">🔮</span>
-                <p className="text-sm font-bold text-purple-700">
+                <p className="text-sm font-bold text-sky-700">
                   Prediction Details (+{trajectoryData.hoursAhead}h)
                 </p>
               </div>
               
               <div className="space-y-2 text-xs">
-                <div className="flex justify-between items-center py-1.5 border-b border-purple-100">
-                  <span className="text-purple-600">Trajectory Speed</span>
+                <div className="flex justify-between items-center py-1.5 border-b border-sky-100">
+                  <span className="text-sky-600">Trajectory Speed</span>
                   <span className="font-mono font-bold text-gray-700">{trajectoryData.speedKmH} km/h</span>
                 </div>
-                <div className="flex justify-between items-center py-1.5 border-b border-purple-100">
-                  <span className="text-purple-600">Heading</span>
+                <div className="flex justify-between items-center py-1.5 border-b border-sky-100">
+                  <span className="text-sky-600">Heading</span>
                   <span className="font-mono font-bold text-gray-700">{trajectoryData.direction}° ({trajectoryData.compassDirection})</span>
                 </div>
                 {weather && (
-                  <div className="flex justify-between items-center py-1.5 border-b border-purple-100">
-                    <span className="text-purple-600">Wind at Location</span>
+                  <div className="flex justify-between items-center py-1.5 border-b border-sky-100">
+                    <span className="text-sky-600">Wind at Location</span>
                     <span className="font-mono font-bold text-gray-700">{weather.wind_speed.toFixed(1)} m/s {windDirectionToCompass(weather.wind_direction)}</span>
                   </div>
                 )}
                 <div className="flex justify-between items-center py-1.5">
-                  <span className="text-purple-600">Velocity (lat/lng)</span>
+                  <span className="text-sky-600">Velocity (lat/lng)</span>
                   <span className="font-mono font-bold text-gray-700">{trajectoryData.latVelocity}° / {trajectoryData.lngVelocity}°</span>
                 </div>
               </div>
               
-              <div className="mt-3 pt-3 border-t border-purple-100">
-                <p className="text-[10px] text-purple-500 leading-relaxed">
+              <div className="mt-3 pt-3 border-t border-sky-100">
+                <p className="text-[10px] text-sky-500 leading-relaxed">
                   📊 Prediction blend: 60% trajectory momentum + 40% wind influence
                 </p>
               </div>

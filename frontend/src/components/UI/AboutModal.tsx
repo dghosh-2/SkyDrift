@@ -19,13 +19,13 @@ export function AboutModal({ isOpen, onClose }: AboutModalProps) {
       {/* Modal */}
       <div className="relative bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[85vh] overflow-hidden">
         {/* Header */}
-        <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 p-6 text-white">
+        <div className="bg-gradient-to-r from-sky-500 via-cyan-500 to-sky-600 p-6 text-white">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <span className="text-4xl">🎈</span>
               <div>
                 <h2 className="text-2xl font-bold">SkyDrift</h2>
-                <p className="text-indigo-200 text-sm">Balloon Constellation Tracker</p>
+                <p className="text-sky-100 text-sm">Balloon Constellation Tracker</p>
               </div>
             </div>
             <button
@@ -49,7 +49,8 @@ export function AboutModal({ isOpen, onClose }: AboutModalProps) {
             <p className="text-gray-600 text-sm leading-relaxed">
               SkyDrift visualizes Windborne Systems&apos; global sounding balloon constellation in real-time. 
               Track balloon positions, view historical paths, and see predicted future locations based on 
-              trajectory analysis and wind patterns.
+              trajectory analysis and wind patterns. The app displays 50 spatially distributed balloons 
+              from the full constellation of ~1,000 balloons.
             </p>
           </section>
 
@@ -69,7 +70,7 @@ export function AboutModal({ isOpen, onClose }: AboutModalProps) {
                   and current position with smooth trajectory paths.
                 </p>
               </div>
-              <div className="bg-indigo-50 rounded-xl p-4 border border-indigo-100">
+              <div className="bg-sky-50 rounded-xl p-4 border border-sky-100">
                 <div className="flex items-center gap-2 mb-1">
                   <span className="text-lg">📍</span>
                   <span className="font-semibold text-gray-800">Present</span>
@@ -79,7 +80,7 @@ export function AboutModal({ isOpen, onClose }: AboutModalProps) {
                   weather data, fire/storm status, and location details.
                 </p>
               </div>
-              <div className="bg-purple-50 rounded-xl p-4 border border-purple-100">
+              <div className="bg-cyan-50 rounded-xl p-4 border border-cyan-100">
                 <div className="flex items-center gap-2 mb-1">
                   <span className="text-lg">⏩</span>
                   <span className="font-semibold text-gray-800">Future</span>
@@ -97,13 +98,13 @@ export function AboutModal({ isOpen, onClose }: AboutModalProps) {
             <h3 className="text-lg font-bold text-gray-800 mb-3 flex items-center gap-2">
               <span>🔮</span> How Predictions Work
             </h3>
-            <div className="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-xl p-4 border border-purple-100">
+            <div className="bg-gradient-to-br from-sky-50 to-cyan-50 rounded-xl p-4 border border-sky-100">
               <p className="text-sm text-gray-700 mb-3">
                 Future positions are calculated using a weighted blend of two factors:
               </p>
               <div className="space-y-2 text-sm">
                 <div className="flex items-start gap-3">
-                  <span className="bg-purple-200 text-purple-700 px-2 py-0.5 rounded font-mono text-xs font-bold">60%</span>
+                  <span className="bg-sky-200 text-sky-700 px-2 py-0.5 rounded font-mono text-xs font-bold">60%</span>
                   <div>
                     <span className="font-semibold text-gray-800">Trajectory Momentum</span>
                     <p className="text-gray-600 text-xs mt-0.5">
@@ -113,7 +114,7 @@ export function AboutModal({ isOpen, onClose }: AboutModalProps) {
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
-                  <span className="bg-indigo-200 text-indigo-700 px-2 py-0.5 rounded font-mono text-xs font-bold">40%</span>
+                  <span className="bg-cyan-200 text-cyan-700 px-2 py-0.5 rounded font-mono text-xs font-bold">40%</span>
                   <div>
                     <span className="font-semibold text-gray-800">Wind Influence</span>
                     <p className="text-gray-600 text-xs mt-0.5">
@@ -123,9 +124,44 @@ export function AboutModal({ isOpen, onClose }: AboutModalProps) {
                   </div>
                 </div>
               </div>
-              <div className="mt-3 pt-3 border-t border-purple-200">
-                <p className="text-xs text-purple-600 font-mono">
+              <div className="mt-3 pt-3 border-t border-sky-200">
+                <p className="text-xs text-sky-600 font-mono">
                   final_position = 0.6 × trajectory_position + 0.4 × wind_displaced_position
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* Watch Zones */}
+          <section>
+            <h3 className="text-lg font-bold text-gray-800 mb-3 flex items-center gap-2">
+              <span>🗺️</span> Watch Zones & Historic Data
+            </h3>
+            <div className="bg-gradient-to-br from-gray-50 to-slate-50 rounded-xl p-4 border border-gray-200">
+              <p className="text-sm text-gray-700 mb-3">
+                Watch Zones allow you to monitor specific regions of interest:
+              </p>
+              <ul className="space-y-2 text-sm text-gray-600">
+                <li className="flex items-start gap-2">
+                  <span className="text-sky-500">•</span>
+                  Draw up to 5 custom polygon regions on the map
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-sky-500">•</span>
+                  Track balloons entering/exiting your zones in real-time
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-sky-500">•</span>
+                  View storm and fire exposure for balloons in each zone
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-sky-500">•</span>
+                  <strong>Historic Data:</strong> Click the expand arrow on any zone to see graphs showing how balloon count, storm exposure, and fire exposure have changed over time since the zone was created
+                </li>
+              </ul>
+              <div className="mt-3 pt-3 border-t border-gray-200">
+                <p className="text-xs text-gray-500">
+                  📊 Data is recorded every minute and stored for the session duration
                 </p>
               </div>
             </div>
@@ -153,9 +189,9 @@ export function AboutModal({ isOpen, onClose }: AboutModalProps) {
                 <p className="text-xs text-gray-500">OpenWeatherMap data</p>
               </div>
               <div className="bg-gray-50 rounded-lg p-3 border border-gray-100">
-                <span className="text-lg">🗺️</span>
-                <p className="text-sm font-semibold text-gray-800 mt-1">Watch Zones</p>
-                <p className="text-xs text-gray-500">Draw custom regions</p>
+                <span className="text-lg">➕</span>
+                <p className="text-sm font-semibold text-gray-800 mt-1">Add Balloon</p>
+                <p className="text-xs text-gray-500">Natural language location</p>
               </div>
             </div>
           </section>
@@ -167,20 +203,24 @@ export function AboutModal({ isOpen, onClose }: AboutModalProps) {
             </h3>
             <ul className="space-y-2 text-sm text-gray-600">
               <li className="flex items-start gap-2">
-                <span className="text-indigo-500">•</span>
+                <span className="text-sky-500">•</span>
                 Click any balloon to see detailed weather, fire, and storm data
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-indigo-500">•</span>
-                Use &quot;Add Balloon&quot; to place custom balloons at any location
+                <span className="text-sky-500">•</span>
+                Use &quot;Add Balloon&quot; to place custom balloons at any location using natural language (e.g., &quot;Paris&quot;, &quot;Pacific Ocean&quot;)
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-indigo-500">•</span>
+                <span className="text-sky-500">•</span>
                 Only one map layer (fire/storm/wind) can be active at a time
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-indigo-500">•</span>
-                Watch Zones let you monitor specific regions (max 5)
+                <span className="text-sky-500">•</span>
+                Watch Zones track historic data - click the expand arrow to view graphs
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="text-sky-500">•</span>
+                The sidebar shows &quot;Balloons on Display&quot; (50) out of the full constellation (~1,000)
               </li>
             </ul>
           </section>

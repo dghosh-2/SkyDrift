@@ -108,10 +108,12 @@ export default function Home() {
     return { balloonsInStorms: inStorms, balloonsOverFires: overFires };
   }, [allPositions, storms, fires]);
 
-  // Update watch zone statistics
+  // Update watch zone statistics and record history
   useEffect(() => {
     if (watchZones.length === 0 || allPositions.length === 0) return;
 
+    const now = Date.now();
+    
     setWatchZones((prev) =>
       prev.map((zone) => {
         let balloonsInZone = 0;
@@ -144,11 +146,20 @@ export default function Home() {
           }
         });
 
+        // Add to history (limit to last 50 entries, record every update)
+        const lastEntry = zone.history[zone.history.length - 1];
+        const shouldRecord = !lastEntry || (now - lastEntry.timestamp > 60000); // Record at most once per minute
+        
+        const newHistory = shouldRecord 
+          ? [...zone.history, { timestamp: now, balloonsInZone, balloonsInStorms, balloonsOverFires }].slice(-50)
+          : zone.history;
+
         return {
           ...zone,
           balloonsInZone,
           balloonsInStorms,
           balloonsOverFires,
+          history: newHistory,
         };
       })
     );
@@ -219,6 +230,8 @@ export default function Home() {
       balloonsInZone: 0,
       balloonsInStorms: 0,
       balloonsOverFires: 0,
+      createdAt: Date.now(),
+      history: [],
     };
 
     setWatchZones((prev) => [...prev, newZone]);
@@ -261,36 +274,35 @@ export default function Home() {
   if (isInitialLoad) {
     return (
       <main className="h-screen w-screen overflow-hidden relative flex items-center justify-center">
-        {/* Animated background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900" />
+        {/* Animated background - light blue theme */}
+        <div className="absolute inset-0 bg-gradient-to-br from-sky-100 via-cyan-50 to-blue-100" />
         <div className="absolute inset-0 overflow-hidden">
           {/* Floating balloons in background */}
           {[...Array(12)].map((_, i) => (
             <div
               key={i}
-              className="absolute animate-pulse"
+              className="absolute"
               style={{
                 left: `${10 + (i % 4) * 25}%`,
                 top: `${15 + Math.floor(i / 4) * 30}%`,
+                animation: `float ${3 + (i % 3)}s ease-in-out infinite`,
                 animationDelay: `${i * 0.3}s`,
-                animationDuration: `${2 + (i % 3)}s`,
               }}
             >
               <div 
-                className="w-4 h-5 rounded-full opacity-20"
+                className="w-6 h-7 rounded-full opacity-40"
                 style={{ 
-                  backgroundColor: ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#DDA0DD'][i % 6],
-                  filter: 'blur(1px)',
+                  backgroundColor: ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#F7DC6F', '#BB8FCE'][i % 6],
                 }}
               />
             </div>
           ))}
-          {/* Subtle grid pattern */}
+          {/* Subtle cloud pattern */}
           <div 
-            className="absolute inset-0 opacity-5"
+            className="absolute inset-0 opacity-30"
             style={{
-              backgroundImage: 'radial-gradient(circle at 1px 1px, white 1px, transparent 0)',
-              backgroundSize: '40px 40px',
+              backgroundImage: 'radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.8) 0%, transparent 70%)',
+              backgroundSize: '200px 100px',
             }}
           />
         </div>
@@ -300,17 +312,17 @@ export default function Home() {
           {/* Animated logo */}
           <div className="relative mb-10">
             {/* Outer glow ring */}
-            <div className="absolute inset-0 w-32 h-32 mx-auto rounded-full bg-indigo-500/20 blur-xl animate-pulse" />
+            <div className="absolute inset-0 w-32 h-32 mx-auto rounded-full bg-sky-400/30 blur-xl animate-pulse" />
             
             {/* Spinning ring */}
             <div className="relative w-32 h-32 mx-auto">
-              <div className="absolute inset-0 rounded-full border-2 border-indigo-500/30" />
+              <div className="absolute inset-0 rounded-full border-2 border-sky-300/50" />
               <div 
-                className="absolute inset-0 rounded-full border-2 border-transparent border-t-indigo-400 border-r-indigo-400"
+                className="absolute inset-0 rounded-full border-2 border-transparent border-t-sky-500 border-r-cyan-400"
                 style={{ animation: 'spin 2s linear infinite' }}
               />
               <div 
-                className="absolute inset-2 rounded-full border border-transparent border-t-purple-400"
+                className="absolute inset-2 rounded-full border border-transparent border-t-cyan-400"
                 style={{ animation: 'spin 3s linear infinite reverse' }}
               />
               
@@ -327,21 +339,29 @@ export default function Home() {
           </div>
           
           {/* Title */}
-          <h1 className="text-4xl font-bold text-white mb-3 tracking-tight">
+          <h1 className="text-4xl font-bold text-sky-900 mb-3 tracking-tight">
             SkyDrift
           </h1>
-          <p className="text-indigo-300 text-lg mb-8 font-light">
+          <p className="text-sky-600 text-lg mb-8 font-light">
             Balloon Constellation Tracker
           </p>
           
           {/* Loading status */}
           <div className="flex items-center justify-center gap-3">
-            <div className="w-2 h-2 bg-indigo-400 rounded-full animate-ping" />
-            <span className="text-indigo-200 text-sm font-medium">
+            <div className="w-2 h-2 bg-sky-500 rounded-full animate-ping" />
+            <span className="text-sky-700 text-sm font-medium">
               Connecting to satellite network...
             </span>
           </div>
         </div>
+        
+        {/* CSS for float animation */}
+        <style jsx>{`
+          @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+          }
+        `}</style>
       </main>
     );
   }

@@ -71,12 +71,12 @@ export function Sidebar({
           fixed top-1/2 -translate-y-1/2 z-20
           w-7 h-20 bg-white/95 backdrop-blur-sm rounded-r-xl shadow-lg border border-l-0 border-gray-200
           flex items-center justify-center
-          transition-all duration-300 hover:bg-indigo-50 hover:border-indigo-200
+          transition-all duration-300 hover:bg-sky-50 hover:border-sky-200
           ${isOpen ? 'left-[340px]' : 'left-0'}
         `}
       >
         <svg
-          className={`w-4 h-4 text-indigo-600 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+          className={`w-4 h-4 text-sky-600 transition-transform ${isOpen ? 'rotate-180' : ''}`}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -95,13 +95,13 @@ export function Sidebar({
       >
         <div className="h-full flex flex-col">
           {/* Header */}
-          <div className="p-5 bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700">
+          <div className="p-5 bg-gradient-to-r from-sky-500 via-cyan-500 to-sky-600">
             <div className="flex items-center justify-between">
               <div>
                 <h1 className="text-2xl font-bold text-white flex items-center gap-2">
                   🎈 SkyDrift
                 </h1>
-                <p className="text-indigo-200 text-xs mt-1">Balloon Constellation Tracker</p>
+                <p className="text-sky-100 text-xs mt-1">Balloon Constellation Tracker</p>
               </div>
               <button
                 onClick={onOpenAbout}
@@ -121,7 +121,7 @@ export function Sidebar({
               onClick={() => setActiveSection('main')}
               className={`flex-1 py-3.5 text-sm font-semibold transition-all flex items-center justify-center gap-2 ${
                 activeSection === 'main'
-                  ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50'
+                  ? 'text-sky-600 border-b-2 border-sky-500 bg-sky-50/50'
                   : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
               }`}
             >
@@ -131,7 +131,7 @@ export function Sidebar({
               onClick={() => setActiveSection('watchzones')}
               className={`flex-1 py-3.5 text-sm font-semibold transition-all flex items-center justify-center gap-2 ${
                 activeSection === 'watchzones'
-                  ? 'text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50'
+                  ? 'text-sky-600 border-b-2 border-sky-500 bg-sky-50/50'
                   : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
               }`}
             >
@@ -150,13 +150,13 @@ export function Sidebar({
                   </h2>
                   <div className="space-y-3">
                     {/* Total Balloons Card */}
-                    <div className="bg-gradient-to-r from-indigo-500 to-purple-500 rounded-xl p-4 text-white shadow-lg shadow-indigo-200">
+                    <div className="bg-gradient-to-r from-sky-500 to-cyan-500 rounded-xl p-4 text-white shadow-lg shadow-sky-200">
                       <div className="flex items-center justify-between">
                         <div>
-                          <p className="text-indigo-100 text-xs font-medium">Balloons</p>
+                          <p className="text-sky-100 text-xs font-medium">Balloons on Display</p>
                           <p className="text-3xl font-bold mt-1">{displayedBalloons}</p>
-                          <p className="text-indigo-200 text-xs mt-1">
-                            of {totalBalloons.toLocaleString()} total
+                          <p className="text-sky-100 text-xs mt-1">
+                            of {totalBalloons.toLocaleString()} in constellation
                           </p>
                         </div>
                         <div className="text-4xl opacity-80">🎈</div>
@@ -193,29 +193,31 @@ export function Sidebar({
                   </div>
                 </section>
 
-                {/* Storm details */}
-                {storms.length > 0 && (
-                  <section className="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
-                    <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-2">
-                      <span>🌀</span> Active Storms
-                    </h3>
-                    <div className="space-y-2 max-h-28 overflow-y-auto">
-                      {Object.entries(stormsByRegion).slice(0, 5).map(([region, regionStorms]) => (
+                {/* Storm details - always show all types */}
+                <section className="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
+                  <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                    <span>🌀</span> Storm Activity
+                  </h3>
+                  <div className="space-y-2 max-h-36 overflow-y-auto">
+                    {/* Always show these storm types */}
+                    {['Flood Warning', 'Severe Thunderstorm', 'Tornado Warning', 'Winter Storm', 'Hurricane', 'Tropical Storm'].map((stormType) => {
+                      const count = storms.filter(s => s.name.toLowerCase().includes(stormType.toLowerCase().split(' ')[0])).length;
+                      return (
                         <div
-                          key={region}
-                          className="flex items-center justify-between text-xs py-1.5 px-2 rounded-lg hover:bg-blue-50 transition-colors"
+                          key={stormType}
+                          className={`flex items-center justify-between text-xs py-1.5 px-2 rounded-lg transition-colors ${count > 0 ? 'hover:bg-blue-50 bg-blue-50/30' : 'bg-gray-50/50'}`}
                         >
-                          <span className="text-gray-600 truncate max-w-[200px]">
-                            {regionStorms[0].name}
+                          <span className={`truncate max-w-[200px] ${count > 0 ? 'text-gray-700' : 'text-gray-400'}`}>
+                            {stormType}
                           </span>
-                          <span className="font-mono font-bold text-blue-600 bg-blue-100 px-2 py-0.5 rounded-full">
-                            {regionStorms.length}
+                          <span className={`font-mono font-bold px-2 py-0.5 rounded-full ${count > 0 ? 'text-blue-600 bg-blue-100' : 'text-gray-400 bg-gray-100'}`}>
+                            {count}
                           </span>
                         </div>
-                      ))}
-                    </div>
-                  </section>
-                )}
+                      );
+                    })}
+                  </div>
+                </section>
 
                 {/* Filters */}
                 <section className="bg-white rounded-xl p-4 border border-gray-100 shadow-sm">
