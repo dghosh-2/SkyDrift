@@ -1,6 +1,7 @@
 # SkyDrift - Balloon Constellation Tracker
 
 A real-time visualization app for tracking Windborne's global sounding balloon constellation, integrating weather, fire, and storm data.
+App is fully deployed at: https://sky-drift.vercel.app
 
 ## Features
 
@@ -35,55 +36,8 @@ A real-time visualization app for tracking Windborne's global sounding balloon c
 - **Backend**: Python 3.11+, FastAPI, httpx
 - **Caching**: In-memory with TTL (no database required)
 
-## Getting Started
 
-### Prerequisites
-- Node.js 18+
-- Python 3.11+
-- API keys (provided in `.env`)
 
-### Installation
-
-1. **Clone and set up environment variables**
-   ```bash
-   cd SkyDrift
-   # .env file should already exist with API keys
-   ```
-
-2. **Install dependencies**
-   ```bash
-   # Install root and frontend dependencies
-   npm run install:all
-   
-   # Set up Python backend
-   npm run setup
-   ```
-
-3. **Run the app**
-   ```bash
-   npm run dev
-   ```
-   This single command starts both the backend (port 8000) and frontend (port 3000).
-
-4. **Open the app**
-   Navigate to [http://localhost:3000](http://localhost:3000)
-
-### Alternative: Run separately
-
-If you prefer to run backend and frontend in separate terminals:
-
-**Backend:**
-```bash
-cd backend
-source venv/bin/activate
-uvicorn app.main:app --reload --port 8000
-```
-
-**Frontend:**
-```bash
-cd frontend
-npm run dev
-```
 
 ## API Endpoints
 
@@ -123,25 +77,4 @@ SkyDrift/
 ├── .env                      # API keys
 └── .cursorrules              # Cursor rules
 ```
-
-## Deployment
-
-### Frontend (Vercel)
-The frontend is ready for Vercel deployment. Set the following environment variables:
-- `NEXT_PUBLIC_API_URL`: Your backend API URL
-- `NEXT_PUBLIC_MAPBOX_TOKEN`: Your Mapbox token
-
-### Backend
-Deploy the FastAPI backend to your preferred platform (Vercel, Railway, Render, etc.) and set:
-- `OPENWEATHERMAP_API_KEY`
-- `OPENAI_API_KEY`
-- `NASA_FIRMS_API_KEY`
-
-## Performance Optimizations
-
-- Aggressive caching on all external API calls
-- SWR for stale-while-revalidate data fetching
-- Lazy loading of weather data (fetched on balloon click)
-- Debounced sidebar inputs
-- Spatially distributed balloon selection algorithm for even global coverage
 
