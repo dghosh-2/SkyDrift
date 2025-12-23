@@ -167,6 +167,22 @@ export function AboutModal({ isOpen, onClose }: AboutModalProps) {
             </div>
           </section>
 
+          {/* Service Status Notice */}
+          <section>
+            <div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
+              <div className="flex items-start gap-3">
+                <span className="text-xl">⚠️</span>
+                <div>
+                  <h3 className="text-sm font-bold text-amber-800 mb-1">Service Notice</h3>
+                  <p className="text-xs text-amber-700">
+                    <strong>NASA FIRMS API is currently experiencing issues.</strong> Wildfire data may not be available at this time. 
+                    Storm data from NOAA is functioning normally.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
           {/* Features */}
           <section>
             <h3 className="text-lg font-bold text-gray-800 mb-3 flex items-center gap-2">
